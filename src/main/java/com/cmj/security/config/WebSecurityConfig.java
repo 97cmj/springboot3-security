@@ -4,6 +4,7 @@ import com.cmj.security.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -19,7 +20,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class WebSecurityConfig {
 
-    private final UserDetailService userDetailService;
+    private final CustomAuthenticationProvider customAuthenticationProvider;
 
     //스프링 시큐리티 보안 필터 체인 무시 설정
     @Bean
@@ -35,14 +36,16 @@ public class WebSecurityConfig {
                         .requestMatchers("/login", "/sign-up", "/user").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults())
+                .formLogin((formLogin) -> {
+                    formLogin.loginPage("/login");
+                })
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
-                ).csrf(withDefaults()
-                ).httpBasic(withDefaults()
-                ).userDetailsService(userDetailService);
+                ).csrf(AbstractHttpConfigurer::disable
+                ).httpBasic(AbstractHttpConfigurer::disable)
+                .authenticationProvider(customAuthenticationProvider);
         return http.build();
     }
 
