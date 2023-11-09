@@ -46,8 +46,24 @@ public class WebSecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                 ).csrf(AbstractHttpConfigurer::disable
-                ).httpBasic(AbstractHttpConfigurer::disable);
+                ).httpBasic(AbstractHttpConfigurer::disable)
+                .sessionManagement(sessionManagement -> sessionManagement
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false))
+                .sessionManagement(sessionManagement -> sessionManagement
+                        .sessionFixation().changeSessionId())
+                .rememberMe(rememberMe -> rememberMe
+                        .rememberMeParameter("remember-me")
+                        .tokenValiditySeconds(3600)
+                        .alwaysRemember(false)
+                        .userDetailsService(userDetailsService))
+
+
+
+
+                ;
         return http.build();
     }
 

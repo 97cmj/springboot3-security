@@ -1,24 +1,34 @@
 spring:
+  config:
+    activate:
+      on-profile: dev
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3305/cmj?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: root
-
+    url: ENC(ICMtTNVRYZbr46MKpbPVwy3i0zB5Hiu/W+oOpMoSh8lkeFHhghNPf3NWFK3hKf3k0+ni4eezK+mTuVbbsobHas+wRa0FvqjwIuDiglERl/Liq14HyY4deCdxGKM1+b+S6Furi3uh8F2OnmM01E4X0iDOzOQxmZ85KnYAe+4T2t0=)
+    username: ENC(LhrBrYzVIeWx2MwxR54mXaG6XMJ6gGp1nIuVKG75O1qS2tjyYsnUBuOSVF3yRZMY)
+    password: ENC(VZ3ezH63fDcGyDrqiZxyS/x2HhE+0caixDayKuGXx6MBR//JhfoZMq+ntwi6xiYf)
 
   jpa:
+    database: mysql   # 추가 해준 부분
     open-in-view: true
     hibernate:
-      ddl-auto: create
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      use-new-id-generator-mappings: false
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate.format_sql: true
       dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
 
+
+
 logging:
   level:
     org.hibernate.SQL: debug
+
+server:
+  ssl:
+    key-store: bootsecurity.p12
+    key-store-password: ENC(xRN7GN22tFMsfUeRrATEqkmgyRhUm7RaUMlGji0AURF1dCz0fjDPJhwxIxkHrZzV)
+    keyStoreType: PKCS12
+    key-alias: bootsecurity
