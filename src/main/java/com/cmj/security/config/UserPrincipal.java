@@ -1,6 +1,7 @@
 package com.cmj.security.config;
 
 import com.cmj.security.domain.entity.User;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -45,4 +46,5 @@ public record UserPrincipal(User user) implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

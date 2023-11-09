@@ -3,6 +3,7 @@ spring:
     activate:
       on-profile: dev
 
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ENC(ICMtTNVRYZbr46MKpbPVwy3i0zB5Hiu/W+oOpMoSh8lkeFHhghNPf3NWFK3hKf3k0+ni4eezK+mTuVbbsobHas+wRa0FvqjwIuDiglERl/Liq14HyY4deCdxGKM1+b+S6Furi3uh8F2OnmM01E4X0iDOzOQxmZ85KnYAe+4T2t0=)
@@ -10,7 +11,7 @@ spring:
     password: ENC(VZ3ezH63fDcGyDrqiZxyS/x2HhE+0caixDayKuGXx6MBR//JhfoZMq+ntwi6xiYf)
 
   jpa:
-    database: mysql   # 추가 해준 부분
+    database: mysql
     open-in-view: true
     hibernate:
       ddl-auto: update
@@ -18,6 +19,7 @@ spring:
     properties:
       hibernate.format_sql: true
       dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
 
 
 
@@ -32,3 +34,4 @@ server:
     key-store-password: ENC(xRN7GN22tFMsfUeRrATEqkmgyRhUm7RaUMlGji0AURF1dCz0fjDPJhwxIxkHrZzV)
     keyStoreType: PKCS12
     key-alias: bootsecurity
+  port: 8443
