@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
@@ -32,38 +31,38 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/register", "/login","/auth").anonymous()
-                        .anyRequest().authenticated()
-                )
-                .formLogin((formLogin) -> {
-                    formLogin.loginPage("/login")
-                            .loginProcessingUrl("/auth")
-                            .usernameParameter("email")
-                            .defaultSuccessUrl("/", true)
-                            .failureHandler(new CustomAuthFailureHandler());
-                })
+                        .requestMatchers("/register", "/login", "/auth").anonymous()
+                        .anyRequest().authenticated())
+
+                .formLogin((formLogin) -> formLogin.loginPage("/login")
+                        .loginProcessingUrl("/auth")
+                        .usernameParameter("email")
+                        .defaultSuccessUrl("/", true)
+                        .failureHandler(new CustomAuthFailureHandler()))
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
+
                 ).csrf(AbstractHttpConfigurer::disable
+
                 ).httpBasic(AbstractHttpConfigurer::disable)
+
                 .sessionManagement(sessionManagement -> sessionManagement
                         .maximumSessions(1)
                         .maxSessionsPreventsLogin(false))
+
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionFixation().changeSessionId())
+
                 .rememberMe(rememberMe -> rememberMe
                         .rememberMeParameter("remember-me")
                         .tokenValiditySeconds(3600)
                         .alwaysRemember(false)
-                        .userDetailsService(userDetailsService))
+                        .userDetailsService(userDetailsService));
 
-
-
-
-                ;
         return http.build();
     }
 
