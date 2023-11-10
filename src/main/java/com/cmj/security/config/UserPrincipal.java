@@ -1,14 +1,13 @@
 package com.cmj.security.config;
 
 import com.cmj.security.domain.entity.User;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 public record UserPrincipal(User user) implements UserDetails {
 
@@ -47,4 +46,16 @@ public record UserPrincipal(User user) implements UserDetails {
         return true;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserPrincipal that)) return false;
+        return user.getEmail().equals(that.user.getEmail());
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user.getEmail());
+    }
 }

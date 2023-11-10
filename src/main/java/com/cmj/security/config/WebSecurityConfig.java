@@ -27,6 +27,9 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 public class WebSecurityConfig {
 
     private final UserDetailService userDetailsService;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final CustomAuthFailureHandler customAuthFailureHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
 
     //스프링 시큐리티 보안 필터 체인 무시 설정
@@ -39,7 +42,7 @@ public class WebSecurityConfig {
     @Bean
     public CookieSerializer cookieSerializer() {
         DefaultCookieSerializer serializer = new DefaultCookieSerializer();
-        serializer.setCookieName("JSESSIONID"); // 쿠키 이름 설정
+        serializer.setCookieName("SESSION"); // 쿠키 이름 설정
         serializer.setCookiePath("/"); // 쿠키 경로 설정
         serializer.setDomainNamePattern("^.+?\\.(\\w+\\.[a-z]+)$"); // 도메인 패턴 설정
         serializer.setUseSecureCookie(true); // HTTPS를 통해서만 쿠키 전송
@@ -61,13 +64,13 @@ public class WebSecurityConfig {
                         .loginProcessingUrl("/auth")
                         .usernameParameter("email")
                         .defaultSuccessUrl("/", true)
-                        .failureHandler(new CustomAuthFailureHandler()))
+                        .failureHandler(customAuthFailureHandler))
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true) // 세션 초기화
+                        .deleteCookies("SESSION", "remember-me")
 
                 ).csrf(AbstractHttpConfigurer::disable
 
@@ -75,10 +78,10 @@ public class WebSecurityConfig {
 
 
                 .sessionManagement(sessionManagement -> sessionManagement
-                        .sessionFixation().migrateSession()
+                        .sessionFixation().changeSessionId()
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // 세션이 필요하면 생성하도록 셋팅
                         .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true)
+                        .maxSessionsPreventsLogin(false)
                         .sessionRegistry(sessionRegistry())
                         .expiredUrl("/login"))
 
@@ -86,7 +89,12 @@ public class WebSecurityConfig {
                         .rememberMeParameter("remember-me")
                         .tokenValiditySeconds(3600)
                         .alwaysRemember(false)
-                        .userDetailsService(userDetailsService));
+                        .userDetailsService(userDetailsService))
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedHandler(customAccessDeniedHandler)
+                        .authenticationEntryPoint(customAuthenticationEntryPoint));
+
+        ;
 
         return http.build();
     }
