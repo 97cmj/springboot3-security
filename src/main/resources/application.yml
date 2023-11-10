@@ -1,12 +1,27 @@
+server:
+  ssl:
+    key-store: bootsecurity.p12
+    key-store-password: ENC(xRN7GN22tFMsfUeRrATEqkmgyRhUm7RaUMlGji0AURF1dCz0fjDPJhwxIxkHrZzV)
+    keyStoreType: PKCS12
+    key-alias: bootsecurity
+  port: 8443
+
+
 spring:
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+
   config:
     activate:
       on-profile: dev
 
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(ICMtTNVRYZbr46MKpbPVwy3i0zB5Hiu/W+oOpMoSh8lkeFHhghNPf3NWFK3hKf3k0+ni4eezK+mTuVbbsobHas+wRa0FvqjwIuDiglERl/Liq14HyY4deCdxGKM1+b+S6Furi3uh8F2OnmM01E4X0iDOzOQxmZ85KnYAe+4T2t0=)
+    url: ENC(Drx/UW1GzDOAIMzfK1UiPIhvqwGENTLCL8JcNEmISv+l6p/3Ms7UTNIucyFy9nvsr9yl06kTRiAJAQtED8RHqnEOHEb25x/Jqv2zBCqoT82Bznd/Dk0Gljn07biC9lP9fn/N6/5XOOEzEYj+0KfbGDug9DaFcCQ61CvMEWLbkslioKGLUBTdA8jxI4RkhqV+)
     username: ENC(LhrBrYzVIeWx2MwxR54mXaG6XMJ6gGp1nIuVKG75O1qS2tjyYsnUBuOSVF3yRZMY)
     password: ENC(VZ3ezH63fDcGyDrqiZxyS/x2HhE+0caixDayKuGXx6MBR//JhfoZMq+ntwi6xiYf)
 
@@ -23,15 +38,7 @@ spring:
 
 
 
-
 logging:
   level:
     org.hibernate.SQL: debug
 
-server:
-  ssl:
-    key-store: bootsecurity.p12
-    key-store-password: ENC(xRN7GN22tFMsfUeRrATEqkmgyRhUm7RaUMlGji0AURF1dCz0fjDPJhwxIxkHrZzV)
-    keyStoreType: PKCS12
-    key-alias: bootsecurity
-  port: 8443

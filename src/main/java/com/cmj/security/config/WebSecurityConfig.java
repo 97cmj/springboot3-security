@@ -17,6 +17,8 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 
 @RequiredArgsConstructor
 @Configuration
@@ -32,6 +34,20 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer configure() {
         return (web -> web.ignoring()
                 .requestMatchers("/static/**", "/favicon.ico"));
+    }
+
+    @Bean
+    public CookieSerializer cookieSerializer() {
+        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+        serializer.setCookieName("JSESSIONID"); // 쿠키 이름 설정
+        serializer.setCookiePath("/"); // 쿠키 경로 설정
+        serializer.setDomainNamePattern("^.+?\\.(\\w+\\.[a-z]+)$"); // 도메인 패턴 설정
+        serializer.setUseSecureCookie(true); // HTTPS를 통해서만 쿠키 전송
+        serializer.setUseHttpOnlyCookie(true); // JavaScript를 통한 쿠키 접근 방지
+        serializer.setSameSite("strict"); // CSRF 공격 방지
+        serializer.setCookieMaxAge(60 * 60 * 24); // 쿠키 만료 시간 설정(초 단위)
+
+        return serializer;
     }
 
     @Bean

@@ -33,8 +33,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserDetails user = userDetailsService.loadUserByUsername(username);
 
-        log.info("user : " + user);
-
         if(!bCryptPasswordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         }
