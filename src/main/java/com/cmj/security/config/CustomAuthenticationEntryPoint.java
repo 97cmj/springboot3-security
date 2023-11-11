@@ -7,6 +7,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import java.io.IOException;
 
@@ -14,9 +16,10 @@ import java.io.IOException;
 @Log4j2
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        request.getSession().setAttribute("DUPLICATE_LOGIN", "로그인 후 이용해주세요.");
+
         response.sendRedirect("/login");
-        log.info("No Authentication");
     }
 }
 

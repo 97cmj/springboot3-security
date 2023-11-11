@@ -5,6 +5,27 @@
     <title>Title</title>
 </head>
 <body>
+<div class="duplicate-login-alert">
+    <div th:if="${session.DUPLICATE_LOGIN != null}">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            alert(/*[[${session.DUPLICATE_LOGIN}]]*/)
+                fetch('/alert/confirm', {
+                    method: 'POST',
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+            /*]]>*/
+        </script>
+    </div>
+</div>
 <h1>Hello World</h1>
 </body>
 </html>

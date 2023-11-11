@@ -5,16 +5,38 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="/auth" method="post">
-        <div>
-            <label for="email">Username</label>
-            <input type="text" id="email" name="email" placeholder="email">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password">
-        </div>
-        <button type="submit">Login</button>
-    </form>
+<div class="duplicate-login-alert">
+    <div th:if="${session.DUPLICATE_LOGIN != null}">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            if (confirm(/*[[${session.DUPLICATE_LOGIN}]]*/)) {
+                fetch('/alert/confirm', {
+                    method: 'POST',
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
+            /*]]>*/
+        </script>
+    </div>
+</div>
+
+<form action="/auth" method="post">
+    <div>
+        <label for="email">Username</label>
+        <input type="text" id="email" name="email" placeholder="email">
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password">
+    </div>
+    <button type="submit">Login</button>
+</form>
 </body>
 </html>
