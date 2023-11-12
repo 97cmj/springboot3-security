@@ -39,7 +39,6 @@ public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
             errorMessage = "내부 시스템 문제로 로그인 요청을 처리할 수 없습니다. 관리자에게 문의하세요.";
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
             errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
-            //맥시멈 세션
         } else if (exception instanceof SessionAuthenticationException) {
             errorMessage = "동시 접속이 허용되지 않습니다. 관리자에게 문의하세요.";
         } else {

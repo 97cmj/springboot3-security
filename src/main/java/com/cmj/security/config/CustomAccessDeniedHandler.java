@@ -18,8 +18,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        request.getSession().setAttribute("DUPLICATE_LOGIN", "접근 권한이 없습니다.");
 
+        log.info("accessDeniedException : " + accessDeniedException.getMessage());
         response.sendRedirect("/");
     }
 }

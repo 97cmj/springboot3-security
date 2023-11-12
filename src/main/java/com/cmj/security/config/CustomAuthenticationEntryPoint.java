@@ -17,9 +17,10 @@ import java.io.IOException;
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        request.getSession().setAttribute("DUPLICATE_LOGIN", "로그인 후 이용해주세요.");
 
+        log.info("authException : " + authException.getMessage());
         response.sendRedirect("/login");
+
     }
 }
 
