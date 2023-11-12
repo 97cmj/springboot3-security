@@ -58,6 +58,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/register", "/login", "/auth").anonymous()
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated())
 
                 .formLogin((formLogin) -> formLogin.loginPage("/login")
