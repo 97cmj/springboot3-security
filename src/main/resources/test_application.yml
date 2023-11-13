@@ -1,0 +1,48 @@
+spring:
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+
+#  config:
+#    activate:
+#      on-profile: dev
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ENC(Drx/UW1GzDOAIMzfK1UiPIhvqwGENTLCL8JcNEmISv+l6p/3Ms7UTNIucyFy9nvsr9yl06kTRiAJAQtED8RHqnEOHEb25x/Jqv2zBCqoT82Bznd/Dk0Gljn07biC9lP9fn/N6/5XOOEzEYj+0KfbGDug9DaFcCQ61CvMEWLbkslioKGLUBTdA8jxI4RkhqV+)
+#    username: ENC(LhrBrYzVIeWx2MwxR54mXaG6XMJ6gGp1nIuVKG75O1qS2tjyYsnUBuOSVF3yRZMY)
+#    password: ENC(VZ3ezH63fDcGyDrqiZxyS/x2HhE+0caixDayKuGXx6MBR//JhfoZMq+ntwi6xiYf)
+#
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3305/test?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: root
+
+
+  jpa:
+    database: mysql
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
