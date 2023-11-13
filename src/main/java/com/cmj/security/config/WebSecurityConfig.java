@@ -3,7 +3,6 @@ package com.cmj.security.config;
 import com.cmj.security.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -57,7 +56,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/register", "/login", "/auth").anonymous()
+                        .requestMatchers("/signUp", "/login", "/auth").anonymous()
                         .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated())
 
@@ -117,13 +116,11 @@ public class WebSecurityConfig {
 
     @Bean
     public SessionRegistry sessionRegistry() {
-        log.info("SessionRegistry");
         return new SessionRegistryImpl();
     }
 
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
-        log.info("HttpSessionEventPublisher");
         return new HttpSessionEventPublisher();
     }
 }

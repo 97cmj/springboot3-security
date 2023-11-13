@@ -58,11 +58,11 @@ public class UserController {
 
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signUp")
     @ResponseBody
-    public ResponseEntity<Void> register(@RequestBody final UserDto userDto) {
+    public ResponseEntity<Void> signUp(@RequestBody final UserDto userDto) {
 
-        userService.register(userDto);
+        userService.signUp(userDto);
 
         return ResponseEntity.ok().build();
 

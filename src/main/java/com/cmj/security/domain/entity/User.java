@@ -1,6 +1,7 @@
 package com.cmj.security.domain.entity;
 
 
+import com.cmj.security.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,13 @@ public class User implements Serializable {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    public static User createUser(String email, String encodedPassword) {
+        return User.builder()
+                .email(email)
+                .password(encodedPassword)
+                .build();
+    }
 
 
 }
