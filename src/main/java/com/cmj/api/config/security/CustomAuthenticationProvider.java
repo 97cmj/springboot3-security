@@ -1,4 +1,4 @@
-package com.cmj.api.config;
+package com.cmj.api.config.security;
 
 import com.cmj.api.service.UserDetailService;
 import jakarta.annotation.Resource;

@@ -2,7 +2,6 @@ package com.cmj.api.controller;
 
 
 import com.cmj.api.domain.CommonException;
-import com.cmj.api.domain.CommonV1;
 import com.cmj.api.domain.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class TestController {
     }
 
     @GetMapping("/v1/error")
-    public ResponseEntity<Object> error(){
+    public ResponseEntity<Object> error() {
 
         Response<Object> result = Response.builder()
                 .status("success")

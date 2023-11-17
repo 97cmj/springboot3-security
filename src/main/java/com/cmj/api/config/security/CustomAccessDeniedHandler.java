@@ -1,4 +1,4 @@
-package com.cmj.api.config;
+package com.cmj.api.config.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

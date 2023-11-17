@@ -7,7 +7,7 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Table(name = "Users")
+@Table(name = "users")
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

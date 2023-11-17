@@ -1,0 +1,1 @@
+insert into users (id, email, password) values ('1', 'user1@naver.com', '$2a$10$CY2bnvVQl.3p3NgfgCJxIerUgq/x8B7/MGcl0rDI7gDbxmjVWJwfm');

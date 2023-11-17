@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,6 +42,17 @@ public class UserController {
         HealthResponse response = getHealthInfo();
 
         log.info("response : " + response);
+
+        Map<String, HealthResponse.Component> result = response.getComponents();
+
+        Map<String, Object> details = result.get("diskSpace").getDetails();
+
+        log.info("details : " + details);
+
+        log.info("result : " + result);
+
+
+
 
         view.addObject("title", "메인 페이지");
         view.setViewName("main");
@@ -65,8 +77,8 @@ public class UserController {
 
         try {
             return ResponseEntity.status(HttpStatus.OK).body(userService.signUp(userDto));
-            } catch (CommonException e) {
-                return ResponseEntity.status(e.getStatus()).body(e.getMsg());
+        } catch (CommonException e) {
+            return ResponseEntity.status(e.getStatus()).body(e.getMsg());
         }
     }
 
